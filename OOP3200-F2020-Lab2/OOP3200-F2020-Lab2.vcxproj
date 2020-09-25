@@ -21,9 +21,11 @@
   <ItemGroup>
     <ClCompile Include="MyConsoleInput.cpp" />
     <ClCompile Include="OOP-3200-F2020-Lab2.cpp" />
+    <ClCompile Include="WorkTicket.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyConsoleInput.h" />
+    <ClInclude Include="WorkTicket.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
