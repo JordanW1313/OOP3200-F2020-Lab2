@@ -58,6 +58,8 @@ int main()
 
     std::cout << ticketArray[2];
 
-    std::cin >> ticketArray[0];
+    std::cin >> ticketArray[2];
+
+    std::cout << ticketArray[2];
 }
 

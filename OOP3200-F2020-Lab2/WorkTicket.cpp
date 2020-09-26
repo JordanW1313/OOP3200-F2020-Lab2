@@ -88,13 +88,15 @@ std::ostream& operator<<(std::ostream& out, const WorkTicket ticket)
     return out;
 }
 
-std::istream& operator>>(std::istream& in, const WorkTicket& ticket)
+std::istream& operator>>(std::istream& in, WorkTicket& ticket)
 {
     int newTicketNumber;
     std::string newClientID;
     std::string newTicketDay;
     std::string newTicketMonth;
     std::string newTicketYear;
+    std::stringstream strOut;
+    std::string newDateString;
     std::string newIssueDescription;
     bool isValid = false;
 
@@ -102,21 +104,44 @@ std::istream& operator>>(std::istream& in, const WorkTicket& ticket)
 
     if (newTicketNumber)
     {
-        in.ignore();
         in >> newClientID;
 
         while(isValid == false)
         {
             if (newClientID.length() > 1)
             {
-                isValid = true;
+                
                 
                 newTicketDay = ConsoleInput::ReadInteger(1, 31);
 
-                newTicketDay = ConsoleInput::ReadInteger(1, 31);
+                newTicketMonth = ConsoleInput::ReadInteger(1, 12);
 
-                newTicketDay = ConsoleInput::ReadInteger(1, 31);
+                newTicketYear = ConsoleInput::ReadInteger(2000, 2099);
 
+                strOut << newTicketMonth << "/" << newTicketDay << "/" << newTicketYear;
+
+                newDateString = strOut.str();
+
+                while (isValid == false)
+                {
+                    std::getline(std::cin, newIssueDescription);
+                    if (newIssueDescription.length() > 0) // The description string is at least one character long.
+                    {
+                        isValid = true;
+
+                        ticket.SetWorkTicketNumber(newTicketNumber);
+                        ticket.SetClientID(newClientID);
+                        ticket.SetWorkTicketDate(newDateString);
+                        ticket.SetIssueDescription(newIssueDescription);
+
+                        std::cout << "worked";
+                    }
+                    else
+                    {
+                        std::cout << "Issue Description must be greater than one character try agian. ";
+                        isValid = false;
+                    }
+                }
             }
             else
             {

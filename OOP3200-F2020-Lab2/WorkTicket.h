@@ -43,7 +43,7 @@ public:
     friend std::ostream& operator<<(std::ostream& out, const WorkTicket ticket);
 
     /* input operator */
-    friend std::istream& operator>>(std::istream& in, const WorkTicket& ticket);
+    friend std::istream& operator>>(std::istream& in, WorkTicket& ticket);
 
     /**** Accessors ****/
     static void ShowWorkTicket(WorkTicket);
