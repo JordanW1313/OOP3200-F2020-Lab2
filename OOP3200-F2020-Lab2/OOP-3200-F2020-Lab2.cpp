@@ -19,6 +19,7 @@
 #include <sstream>
 
 
+
 int main()
 {
     // Array holds WorkTicket objs. Can change the array size if more tickets are needed.
@@ -39,8 +40,24 @@ int main()
     // Displays all the attributes of each WorkTicket obj stored in the ticket array.
     for (int ticketIndex = 0; ticketIndex <= 2; ticketIndex++)
     {
-        ticketArray[ticketIndex].WorkTicket::ShowWorkTicket(ticketArray[ticketIndex]);
-        std::cout << std::endl;
+        WorkTicket::ShowWorkTicket(ticketArray[ticketIndex]);
+        //std::cout << std::endl;
     }
+
+    WorkTicket testTicket(1200, "ABC123", "1/2/2020", "test description");
+
+    ticketArray[2] = testTicket;
+
+    WorkTicket::ShowWorkTicket(ticketArray[2]);
+
+    //WorkTicket::ShowWorkTicket(ticketArray[0]);
+
+    std::string s = ticketArray[0];
+
+    std::cout << s << std::endl;
+
+    std::cout << ticketArray[2];
+
+    std::cin >> ticketArray[0];
 }
 

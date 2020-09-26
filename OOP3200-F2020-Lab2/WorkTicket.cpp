@@ -3,17 +3,146 @@
 #include <sstream>
 #include "MyConsoleInput.h"
 
+WorkTicket::WorkTicket(const WorkTicket& ticket2) 
+{
+    if (*this != ticket2) 
+    {
+        std::cout << "\nA WorkTicket object was COPIED.\n";
+    }
+
+    SetWorkTicketNumber(ticket2.GetTicketNumber());
+    SetClientID(ticket2.GetClientID());
+    SetWorkTicketDate(ticket2.GetTicketDate());
+    SetIssueDescription(ticket2.GetIssueDescription());
+}
+
+WorkTicket::operator std::string()
+{
+    std::string output;
+    std::stringstream strOut;
+
+    strOut << "Work Ticket # " << GetTicketNumber() << " - " << GetClientID() << " (" << GetTicketDate() << "): " << GetIssueDescription() << std::endl;
+    output = strOut.str();
+
+    return output;
+
+}
+
+
+bool WorkTicket::operator!=(const WorkTicket& otherWorkTicket)
+{
+    if (GetTicketNumber() == otherWorkTicket.GetTicketNumber())
+    {
+        return false;
+    }
+    else if (GetClientID() == otherWorkTicket.GetClientID())
+    {
+        return false;
+    }
+    else if (GetTicketDate() == otherWorkTicket.GetTicketDate())
+    {
+        return false;
+    }
+    else if(GetIssueDescription() == otherWorkTicket.GetIssueDescription())
+    {
+        return false;
+    }
+    else 
+    {
+        return true;
+    }        
+}
+
+bool WorkTicket::operator==(WorkTicket& otherWorkTicket)
+{
+    if (GetTicketNumber() != otherWorkTicket.GetTicketNumber())
+    {
+        return false;
+    }
+    else if (GetClientID() != otherWorkTicket.GetClientID())
+    {
+        return false;
+    }
+    else if (GetTicketDate() != otherWorkTicket.GetTicketDate())
+    {
+        return false;
+    }
+    else if (GetIssueDescription() != otherWorkTicket.GetIssueDescription())
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+std::ostream& operator<<(std::ostream& out, const WorkTicket ticket)
+{
+    out << "Ticket Number: " << ticket.GetTicketNumber() << std::endl;
+    out << "----------------------" << std::endl;
+    out << "Client ID: " << ticket.GetClientID() << std::endl;
+    out << "Ticket Date: " << ticket.GetTicketDate() << std::endl;
+    out << "Issue Description: " << ticket.GetIssueDescription() << std::endl << std::endl;
+
+    return out;
+}
+
+std::istream& operator>>(std::istream& in, const WorkTicket& ticket)
+{
+    int newTicketNumber;
+    std::string newClientID;
+    std::string newTicketDay;
+    std::string newTicketMonth;
+    std::string newTicketYear;
+    std::string newIssueDescription;
+    bool isValid = false;
+
+    newTicketNumber = ConsoleInput::ReadInteger(1, 9999999);
+
+    if (newTicketNumber)
+    {
+        in.ignore();
+        in >> newClientID;
+
+        while(isValid == false)
+        {
+            if (newClientID.length() > 1)
+            {
+                isValid = true;
+                
+                newTicketDay = ConsoleInput::ReadInteger(1, 31);
+
+                newTicketDay = ConsoleInput::ReadInteger(1, 31);
+
+                newTicketDay = ConsoleInput::ReadInteger(1, 31);
+
+            }
+            else
+            {
+                std::cout << "Client ID must be greater than one character" << std::endl;
+                in.ignore();
+                newClientID = ConsoleInput::ReadInteger(1, 31);
+            }
+        }
+        
+
+    }
+
+    return in;
+}
+
 /// <summary>
 /// Displays the object's attributes to the user.
 /// </summary>
 /// <param name="myTicket"></param>
 void WorkTicket::ShowWorkTicket(WorkTicket myTicket)
 {
-    std::cout << "Ticket Number: " << myTicket.workTicketNumber << std::endl;
+    std::cout << "Ticket Number: " << myTicket.GetTicketNumber() << std::endl;
     std::cout << "----------------------" << std::endl;
-    std::cout << "Client ID:" << myTicket.clientID << std::endl;
-    std::cout << "Ticket Date: " << myTicket.workTicketDate << std::endl;
-    std::cout << "Issue Description: " << myTicket.issueDescription << std::endl << std::endl;
+    std::cout << "Client ID: " << myTicket.GetClientID() << std::endl;
+    std::cout << "Ticket Date: " << myTicket.GetTicketDate() << std::endl;
+    std::cout << "Issue Description: " << myTicket.GetIssueDescription() << std::endl << std::endl;
 }
 
 ///////// Getters for WorkTicket class ////////////////
@@ -22,7 +151,7 @@ void WorkTicket::ShowWorkTicket(WorkTicket myTicket)
 /// retrieves work ticket number attribute value from a work ticket object
 /// </summary>
 /// <returns></returns>
-int WorkTicket::GetTicketNumber()
+int WorkTicket::GetTicketNumber() const
 {
     return workTicketNumber;
 }
@@ -31,7 +160,7 @@ int WorkTicket::GetTicketNumber()
 /// retrieves client id attribute value from a work ticket object
 /// </summary>
 /// <returns></returns>
-std::string WorkTicket::GetClientID()
+std::string WorkTicket::GetClientID() const 
 {
     return clientID;
 }
@@ -40,7 +169,7 @@ std::string WorkTicket::GetClientID()
 /// retrieves work ticket date attribute value from a work ticket object
 /// </summary>
 /// <returns></returns>
-std::string WorkTicket::GetTicketDate()
+std::string WorkTicket::GetTicketDate() const
 {
     return workTicketDate;
 }
@@ -49,7 +178,7 @@ std::string WorkTicket::GetTicketDate()
 /// retrieves issue description attribute value from a work ticket object
 /// </summary>
 /// <returns></returns>
-std::string WorkTicket::GetIssueDescription()
+std::string WorkTicket::GetIssueDescription() const
 {
     return issueDescription;
 }
@@ -193,3 +322,4 @@ void WorkTicket::SetIssueDescription(std::string description)
 {
     issueDescription = description;
 }
+

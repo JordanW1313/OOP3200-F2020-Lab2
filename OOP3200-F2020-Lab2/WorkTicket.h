@@ -27,16 +27,34 @@ public:
         issueDescription = description;
     };
 
+    /* copy constructor */
+    WorkTicket(const WorkTicket& ticket2); /*{workTicketNumber = ticket2.GetTicketNumber(), clientID = ticket2.GetTicketNumbe*/
+
+    /* conversion operator */
+    operator std::string();
+
+    /* Is not equal to overload */
+    bool operator!=(const WorkTicket& otherWorkTicket);
+
+    /* Equal to overload */
+    bool operator==(WorkTicket& otherWorkTicket);
+
+    /* output operator */
+    friend std::ostream& operator<<(std::ostream& out, const WorkTicket ticket);
+
+    /* input operator */
+    friend std::istream& operator>>(std::istream& in, const WorkTicket& ticket);
+
     /**** Accessors ****/
     static void ShowWorkTicket(WorkTicket);
 
-    int GetTicketNumber();
+    int GetTicketNumber() const;
 
-    std::string GetClientID();
+    std::string GetClientID() const;
 
-    std::string GetTicketDate();
+    std::string GetTicketDate() const;
 
-    std::string GetIssueDescription();
+    std::string GetIssueDescription() const;
 
     /*** Mutators ***/
     void SetWorkTicket();
