@@ -109,6 +109,7 @@ std::istream& operator>>(std::istream& in, WorkTicket& ticket)
 
     if (newTicketNumber)
     {
+
         in >> newClientID;
 
         while(isValid == false)
