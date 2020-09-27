@@ -8,10 +8,9 @@
 // Constructor for WorkTicket.
 WorkTicket::WorkTicket(const WorkTicket& ticket2) 
 {
-    if (*this != ticket2) 
-    {
-        std::cout << "\nA WorkTicket object was COPIED.\n";
-    }
+    
+    std::cout << "\nA WorkTicket object was COPIED.\n";
+    
 
     SetWorkTicketNumber(ticket2.GetTicketNumber());
     SetClientID(ticket2.GetClientID());
@@ -80,6 +79,16 @@ bool WorkTicket::operator==(WorkTicket& otherWorkTicket) const
     {
         return true;
     }
+}
+
+void WorkTicket::operator=(WorkTicket& otherWorkTicket)
+{
+    workTicketNumber = otherWorkTicket.GetTicketNumber();
+    clientID = otherWorkTicket.GetClientID();
+    workTicketDate = otherWorkTicket.GetClientID();
+    issueDescription = otherWorkTicket.GetIssueDescription();
+
+    std::cout << "\nWorkTicket object was ASSIGNED.\n";
 }
 
 std::ostream& operator<<(std::ostream& out, const WorkTicket& ticket)

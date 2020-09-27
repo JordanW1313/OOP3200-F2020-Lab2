@@ -40,6 +40,9 @@ public:
     /* Equal to overload */
     bool operator==(WorkTicket& otherWorkTicket) const;
 
+    /* Assignment operator*/
+    void operator=(WorkTicket& otherWorkTicket);
+
     /* output operator */
     friend std::ostream& operator<<(std::ostream& out, const WorkTicket& ticket);
 
