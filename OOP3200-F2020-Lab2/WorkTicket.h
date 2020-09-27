@@ -3,7 +3,7 @@
 #ifndef _WORK_TICKET_
 #define _WORK_TICKET_
 
-
+// Class declaration section.
 class WorkTicket
 {
 public:
@@ -28,25 +28,26 @@ public:
     };
 
     /* copy constructor */
-    WorkTicket(const WorkTicket& ticket2); /*{workTicketNumber = ticket2.GetTicketNumber(), clientID = ticket2.GetTicketNumbe*/
-
+    WorkTicket(const WorkTicket& ticket2);
+    ~WorkTicket(); // Destructor which does memory cleanup.
+	
     /* conversion operator */
-    operator std::string();
+    operator std::string() const;
 
     /* Is not equal to overload */
-    bool operator!=(const WorkTicket& otherWorkTicket);
+    bool operator!=(const WorkTicket& otherWorkTicket) const;
 
     /* Equal to overload */
-    bool operator==(WorkTicket& otherWorkTicket);
+    bool operator==(WorkTicket& otherWorkTicket) const;
 
     /* output operator */
-    friend std::ostream& operator<<(std::ostream& out, const WorkTicket ticket);
+    friend std::ostream& operator<<(std::ostream& out, const WorkTicket& ticket);
 
     /* input operator */
     friend std::istream& operator>>(std::istream& in, WorkTicket& ticket);
 
     /**** Accessors ****/
-    static void ShowWorkTicket(WorkTicket);
+    static void ShowWorkTicket(const WorkTicket&);
 
     int GetTicketNumber() const;
 
@@ -68,8 +69,8 @@ public:
     void SetIssueDescription(std::string description);
 
 private:
-    // Declaring the parameters of the WorkTicket obj
-    int workTicketNumber;
+    // Data members for a Work Ticket obj's parameters.
+    int workTicketNumber{};
     std::string clientID;
     std::string workTicketDate;
     std::string issueDescription;

@@ -3,6 +3,9 @@
 #include <sstream>
 #include "MyConsoleInput.h"
 
+// Class definition section.
+
+// Constructor for WorkTicket.
 WorkTicket::WorkTicket(const WorkTicket& ticket2) 
 {
     if (*this != ticket2) 
@@ -15,8 +18,10 @@ WorkTicket::WorkTicket(const WorkTicket& ticket2)
     SetWorkTicketDate(ticket2.GetTicketDate());
     SetIssueDescription(ticket2.GetIssueDescription());
 }
+WorkTicket::~WorkTicket() // Destructor.
+= default;
 
-WorkTicket::operator std::string()
+WorkTicket::operator std::string() const
 {
     std::string output;
     std::stringstream strOut;
@@ -28,8 +33,8 @@ WorkTicket::operator std::string()
 
 }
 
-
-bool WorkTicket::operator!=(const WorkTicket& otherWorkTicket)
+// Operator checks if WorkTicket obj is the same as the other WorkTicket obj.
+bool WorkTicket::operator!=(const WorkTicket& otherWorkTicket) const
 {
     if (GetTicketNumber() == otherWorkTicket.GetTicketNumber())
     {
@@ -53,7 +58,7 @@ bool WorkTicket::operator!=(const WorkTicket& otherWorkTicket)
     }        
 }
 
-bool WorkTicket::operator==(WorkTicket& otherWorkTicket)
+bool WorkTicket::operator==(WorkTicket& otherWorkTicket) const
 {
     if (GetTicketNumber() != otherWorkTicket.GetTicketNumber())
     {
@@ -77,7 +82,7 @@ bool WorkTicket::operator==(WorkTicket& otherWorkTicket)
     }
 }
 
-std::ostream& operator<<(std::ostream& out, const WorkTicket ticket)
+std::ostream& operator<<(std::ostream& out, const WorkTicket& ticket)
 {
     out << "Ticket Number: " << ticket.GetTicketNumber() << std::endl;
     out << "----------------------" << std::endl;
@@ -112,11 +117,11 @@ std::istream& operator>>(std::istream& in, WorkTicket& ticket)
             {
                 
                 
-                newTicketDay = ConsoleInput::ReadInteger(1, 31);
+                newTicketDay = std::to_string(ConsoleInput::ReadInteger(1, 31));
 
-                newTicketMonth = ConsoleInput::ReadInteger(1, 12);
+                newTicketMonth = std::to_string(ConsoleInput::ReadInteger(1, 12));
 
-                newTicketYear = ConsoleInput::ReadInteger(2000, 2099);
+                newTicketYear = std::to_string(ConsoleInput::ReadInteger(2000, 2099));
 
                 strOut << newTicketMonth << "/" << newTicketDay << "/" << newTicketYear;
 
@@ -138,7 +143,7 @@ std::istream& operator>>(std::istream& in, WorkTicket& ticket)
                     }
                     else
                     {
-                        std::cout << "Issue Description must be greater than one character try agian. ";
+                        std::cout << "Issue Description must be greater than one character try again. ";
                         isValid = false;
                     }
                 }
@@ -147,13 +152,12 @@ std::istream& operator>>(std::istream& in, WorkTicket& ticket)
             {
                 std::cout << "Client ID must be greater than one character" << std::endl;
                 in.ignore();
-                newClientID = ConsoleInput::ReadInteger(1, 31);
+                newClientID = std::to_string(ConsoleInput::ReadInteger(1, 31));
             }
         }
         
 
     }
-
     return in;
 }
 
@@ -161,7 +165,7 @@ std::istream& operator>>(std::istream& in, WorkTicket& ticket)
 /// Displays the object's attributes to the user.
 /// </summary>
 /// <param name="myTicket"></param>
-void WorkTicket::ShowWorkTicket(WorkTicket myTicket)
+void WorkTicket::ShowWorkTicket(const WorkTicket& myTicket)
 {
     std::cout << "Ticket Number: " << myTicket.GetTicketNumber() << std::endl;
     std::cout << "----------------------" << std::endl;
@@ -347,4 +351,3 @@ void WorkTicket::SetIssueDescription(std::string description)
 {
     issueDescription = description;
 }
-
