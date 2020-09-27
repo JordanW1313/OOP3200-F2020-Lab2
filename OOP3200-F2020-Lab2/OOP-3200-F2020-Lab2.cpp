@@ -22,10 +22,10 @@
 int main()
 {
 	// Adding some objects into the vector for testing purposes.
-    WorkTicket ticket0 = (WorkTicket(1, "100698449", "1/1/2001", 
-        "This is the description for the very first work ticket in the array."));
+    WorkTicket ticket0 = (WorkTicket(1, "100698429", "1/1/2021", 
+        "Desc for ticket 1"));
     WorkTicket ticket1 = (WorkTicket(2, "100441592", "2/2/2002",
-        "This is the description for the very second work ticket in the array."));
+        "Desc for ticket 2"));
 	
     // Change size to desirable number of total WorkTicket objects.
     int numOfObjects = 3;
@@ -68,5 +68,15 @@ int main()
     std::cout << std::endl;
 
     std::cout << ticketVector[2]; //Demo for << overload
+
+	// Demo for == overload
+    bool equalCheck1, equalCheck2;
+    equalCheck1 = (ticketVector[0] == ticketVector[1]);
+    equalCheck2 = (ticketVector[0] == ticketVector[2]);
+
+    std::cout << "Is Ticket #" << ticketVector[0].GetTicketNumber() <<
+        " equal to Ticket #" << ticketVector[1].GetTicketNumber() << "?: " << equalCheck1 << std::endl;
+    std::cout << "Is Ticket #" << ticketVector[0].GetTicketNumber() <<
+        " equal to Ticket #" << ticketVector[2].GetTicketNumber() << "?: " << equalCheck2 << std::endl;
 }
 

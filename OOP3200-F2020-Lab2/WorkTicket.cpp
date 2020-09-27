@@ -95,7 +95,7 @@ void WorkTicket::operator=(WorkTicket& otherWorkTicket)
     workTicketDate = otherWorkTicket.GetClientID();
     issueDescription = otherWorkTicket.GetIssueDescription();
 
-    std::cout << "\nWorkTicket object was ASSIGNED.\n";
+    std::cout << "\nWorkTicket object was ASSIGNED.\n" << std::endl;
 }
 
 std::ostream& operator<<(std::ostream& out, const WorkTicket& ticket)
