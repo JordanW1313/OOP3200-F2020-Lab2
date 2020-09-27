@@ -33,6 +33,8 @@ int main()
     ticketVector.reserve(numOfObjects); // Used to preallocate memory for the pre-existing objects.
     ticketVector.push_back(ticket0);
     ticketVector.push_back(ticket1);
+
+    std::cout << std::endl;
    
     // Prompts the user to create the specified number of tickets.
     for (int vectorSize = 2; vectorSize < numOfObjects; vectorSize++)
@@ -53,18 +55,18 @@ int main()
     WorkTicket testTicket(1200, "ABC123", "1/2/2020",
         "test description");
 
-    ticketVector[2] = testTicket;
+    ticketVector[2] = testTicket; //Demo for = overload
 
-    WorkTicket::ShowWorkTicket(ticketVector[2]);
+    WorkTicket::ShowWorkTicket(ticketVector[2]); //Shows above ticket's new values
 
-    std::string s = ticketVector[0];
+    std::string s = ticketVector[0]; //Demo for conversion operator
 
-    std::cout << s << std::endl;
+    std::cout << s << std::endl; //Displays converted work ticket string
 
-    std::cout << ticketVector[2];
+    std::cin >> ticketVector[2]; //Demo for >> overload
 
-    std::cin >> ticketVector[2];
+    std::cout << std::endl;
 
-    std::cout << ticketVector[2];
+    std::cout << ticketVector[2]; //Demo for << overload
 }
 

@@ -121,32 +121,37 @@ std::istream& operator>>(std::istream& in, WorkTicket& ticket)
     std::string newIssueDescription;
     bool isValid = false;
 
+    std::cout << "Enter the work ticket number: ";
     newTicketNumber = ConsoleInput::ReadInteger(1, 9999999);
 
     if (newTicketNumber)
     {
-
+        std::cout << "Enter the work ticket Client ID: ";
         in >> newClientID;
 
         while(isValid == false)
         {
             if (newClientID.length() > 1)
             {
-                
-                
-                newTicketDay = std::to_string(ConsoleInput::ReadInteger(1, 31));
+                std::cout << "Enter the work ticket Month: ";
+                newTicketMonth = std::to_string(ConsoleInput::ReadInteger(1, 31));
 
-                newTicketMonth = std::to_string(ConsoleInput::ReadInteger(1, 12));
+                std::cout << "Enter the work ticket Day: ";
+                newTicketDay = std::to_string(ConsoleInput::ReadInteger(1, 12));
 
+                std::cout << "Enter the work ticket Year: ";
                 newTicketYear = std::to_string(ConsoleInput::ReadInteger(2000, 2099));
 
                 strOut << newTicketMonth << "/" << newTicketDay << "/" << newTicketYear;
 
                 newDateString = strOut.str();
 
+                std::cout << "Enter the issue description: ";
+                std::cout << std::endl;
+                std::getline(std::cin, newIssueDescription);
+
                 while (isValid == false)
-                {
-                    std::getline(std::cin, newIssueDescription);
+                {                    
                     if (newIssueDescription.length() > 0) // The description string is at least one character long.
                     {
                         isValid = true;
@@ -155,12 +160,12 @@ std::istream& operator>>(std::istream& in, WorkTicket& ticket)
                         ticket.SetClientID(newClientID);
                         ticket.SetWorkTicketDate(newDateString);
                         ticket.SetIssueDescription(newIssueDescription);
-
-                        std::cout << "worked";
                     }
                     else
                     {
                         std::cout << "Issue Description must be greater than one character try again. ";
+                        std::cout << std::endl;
+                        std::getline(std::cin, newIssueDescription);
                         isValid = false;
                     }
                 }
@@ -169,11 +174,9 @@ std::istream& operator>>(std::istream& in, WorkTicket& ticket)
             {
                 std::cout << "Client ID must be greater than one character" << std::endl;
                 in.ignore();
-                newClientID = std::to_string(ConsoleInput::ReadInteger(1, 31));
+                in >> newClientID;
             }
         }
-        
-
     }
     return in;
 }
@@ -245,7 +248,8 @@ void WorkTicket::SetWorkTicket(/*int ticketNumber, std::string iD, std::string t
     const int MAX_YEAR = 2099;
 
 
-    bool isValid = true; // isValid returns true if all inputs are valid.
+    bool validTicket = true; // validTicket returns true if all inputs are valid.
+    bool isValid = false;
 
     // Variables hold user input
     int ticketNumber;
@@ -264,66 +268,74 @@ void WorkTicket::SetWorkTicket(/*int ticketNumber, std::string iD, std::string t
 
         std::cout << "Enter the client ID: ";
         std::cin >> iD;
-        if (iD.length() > 1)
+        while (isValid == false)
         {
-            std::cout << "Enter the month: ";
-            try
+            if (iD.length() > 1)
             {
-                month = ConsoleInput::ReadInteger(MIN_MONTH, MAX_MONTH); // Month entered was within range.
-            }
-            catch (std::exception& ex) // Month entered was out of range.
-            {
-                std::cerr << ex.what() << "The month must be a whole number between 1 and 12.";
-            }
+                std::cout << "Enter the month: ";
+                try
+                {
+                    month = ConsoleInput::ReadInteger(MIN_MONTH, MAX_MONTH); // Month entered was within range.
+                }
+                catch (std::exception& ex) // Month entered was out of range.
+                {
+                    std::cerr << ex.what() << "The month must be a whole number between 1 and 12.";
+                }
 
-            std::cout << "Enter the day: ";
-            try
-            {
-                day = ConsoleInput::ReadInteger(MIN_DAY, MAX_DAY); // Day entered was within range.
-            }
-            catch (std::exception& ex) // Day entered was out of range.
-            {
-                std::cerr << ex.what() << "The day must be a whole number between 1 and 31.";
-            }
+                 std::cout << "Enter the day: ";
+                try
+                {
+                    day = ConsoleInput::ReadInteger(MIN_DAY, MAX_DAY); // Day entered was within range.
+                }
+                catch (std::exception& ex) // Day entered was out of range.
+                {
+                    std::cerr << ex.what() << "The day must be a whole number between 1 and 31.";
+                }
 
-            std::cout << "Enter the Year: ";
-            try
-            {
-                year = ConsoleInput::ReadInteger(MIN_YEAR, MAX_YEAR); // Year entered was within range.
-            }
-            catch (std::exception& ex) // The year either does not fall in the range, or is not an integer.
-            {
-                std::cerr << ex.what() << "The year must be a whole number between 2000 and 2099.";
-            }
+                std::cout << "Enter the Year: ";
+                try
+                {
+                    year = ConsoleInput::ReadInteger(MIN_YEAR, MAX_YEAR); // Year entered was within range.
+                }
+                catch (std::exception& ex) // The year either does not fall in the range, or is not an integer.
+                {
+                    std::cerr << ex.what() << "The year must be a whole number between 2000 and 2099.";
+                }
 
-            strOut << month << "/" << day << "/" << year;
+                strOut << month << "/" << day << "/" << year;
 
-            std::cout << "Enter the issue description" << std::endl;
-            std::getline(std::cin, description);
-            if (description.length() > 0) // The description string is at least one character long.
-            {
-                issueDescription = description;
-            }
-            else
-            {
-                std::cout << std::endl;
-                std::cout << "Issue Description must be greater than one character: ";
-                isValid = false;
-            }
+                std::cout << "Enter the issue description:" << std::endl;
+                std::getline(std::cin, description);
+                while (isValid == false)
+                {
+                    if (description.length() > 0) // The description string is at least one character long.
+                    {
+                        issueDescription = description;
+                        isValid = true;
+                    }
+                    else
+                    {
+                        
+                        std::cout << "Issue Description must be greater than one character try again: " << std::endl;
+                        std::getline(std::cin, description);
+                    }
+                }
         }
         else
         {
-            std::cout << "Client ID must be greater than one character" << std::endl;
-            isValid = false;
+            std::cout << "Client ID must be greater than one character try again: ";
+            std::cin >> iD;
+            validTicket = false;
         }
+    }
     }
     catch (std::exception& ex)
     {
         std::cerr << ex.what() << "The Work ticket number cannot be less than 0.";
-        isValid = false;
+        validTicket = false;
     }
 
-    if (isValid == true)
+    if (validTicket == true)
     {
         std::cout << std::endl;
         SetWorkTicketNumber(ticketNumber);
