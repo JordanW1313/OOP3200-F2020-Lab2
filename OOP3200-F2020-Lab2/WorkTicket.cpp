@@ -5,20 +5,26 @@
 
 // Class definition section.
 
-// Constructor for WorkTicket.
+// constructor for WorkTicket
+WorkTicket::WorkTicket(int ticket_num, std::string ticket_id, std::string ticket_date, std::string ticket_description)
+{
+    SetWorkTicketNumber(ticket_num);
+    SetClientID(ticket_id);
+    SetWorkTicketDate(ticket_date);
+    SetIssueDescription(ticket_description);
+}
+
+// Copy constructor implementation.
 WorkTicket::WorkTicket(const WorkTicket& ticket2) 
 {
-    if (*this != ticket2) 
-    {
-        std::cout << "\nA WorkTicket object was COPIED.\n";
-    }
-
     SetWorkTicketNumber(ticket2.GetTicketNumber());
     SetClientID(ticket2.GetClientID());
     SetWorkTicketDate(ticket2.GetTicketDate());
     SetIssueDescription(ticket2.GetIssueDescription());
+
+    std::cout << "\nA WorkTicket object was COPIED.\n";
 }
-WorkTicket::~WorkTicket() // Destructor.
+WorkTicket::~WorkTicket() // Default destructor.
 = default;
 
 WorkTicket::operator std::string() const
@@ -80,6 +86,16 @@ bool WorkTicket::operator==(WorkTicket& otherWorkTicket) const
     {
         return true;
     }
+}
+
+void WorkTicket::operator=(WorkTicket& otherWorkTicket)
+{
+    workTicketNumber = otherWorkTicket.GetTicketNumber();
+    clientID = otherWorkTicket.GetClientID();
+    workTicketDate = otherWorkTicket.GetClientID();
+    issueDescription = otherWorkTicket.GetIssueDescription();
+
+    std::cout << "\nWorkTicket object was ASSIGNED.\n";
 }
 
 std::ostream& operator<<(std::ostream& out, const WorkTicket& ticket)

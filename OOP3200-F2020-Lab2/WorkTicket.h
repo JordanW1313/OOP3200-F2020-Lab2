@@ -9,27 +9,13 @@ class WorkTicket
 public:
 
     // Default constructor
-    WorkTicket()
-    {
-        workTicketNumber = 0;
-        clientID = "";
-        workTicketDate = "1/1/2000";
-        issueDescription = "";
+    WorkTicket(int ticket_num = 0, std::string id = "", std::string ticket_date = "1/1/2000",
+        std::string ticket_description = "Generic description.");
 
-    }
-
-    // Parameterized constructor
-    WorkTicket(int ticketNumber, std::string id, std::string ticketDate, std::string description)
-    {
-        workTicketNumber = ticketNumber;
-        clientID = id;
-        workTicketDate = ticketDate;
-        issueDescription = description;
-    };
-
+    ~WorkTicket(); // Destructor which does memory cleanup.
+	
     /* copy constructor */
     WorkTicket(const WorkTicket& ticket2);
-    ~WorkTicket(); // Destructor which does memory cleanup.
 	
     /* conversion operator */
     operator std::string() const;
@@ -39,6 +25,9 @@ public:
 
     /* Equal to overload */
     bool operator==(WorkTicket& otherWorkTicket) const;
+
+    /* Assignment operator*/
+    void operator=(WorkTicket& otherWorkTicket);
 
     /* output operator */
     friend std::ostream& operator<<(std::ostream& out, const WorkTicket& ticket);
