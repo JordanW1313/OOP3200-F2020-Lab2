@@ -1,13 +1,12 @@
 /****************************************************************
 * Name: Jordan Wriker & Ahmed Rizvi
-* Date: 18th September, 2020
+* Date: 27th September, 2020
 * Course: OOP-3200
-* File: OOP3200-F2020-Lab1
-* Purpose: The purpose of this program is to implement object oriented concepts to keep
-*          track of Work Tickets. Each Work Ticket is created as an object, and upon the
-*          launch of the program, the user is prompted to create their own Work Ticket
-*          object. The program then outputs all the Work Tickets, stored in an array, and 
-*          their attributes.
+* File: OOP3200-F2020-Lab2
+* Purpose: The purpose of this iteration of lab 1 is to implement operator
+*          overloads in the WorkTicket class. This includes a copy constructor,
+*          a conversion operator, overloaded operator==, operator=, operator>>,
+*          and operator<<.
 *
 ******************************************************************/
 
@@ -22,21 +21,21 @@
 
 int main()
 {
-    // Array holds WorkTicket objs. Can change the array size if more tickets are needed.
-
+	// Adding some objects into the vector for testing purposes.
     WorkTicket ticket0 = (WorkTicket(1, "100698449", "1/1/2001", 
         "This is the description for the very first work ticket in the array."));
     WorkTicket ticket1 = (WorkTicket(2, "100441592", "2/2/2002",
         "This is the description for the very second work ticket in the array."));
+	
+    // Change size to desirable number of total WorkTicket objects.
+    int numOfObjects = 3;
     std::vector<WorkTicket> ticketVector;
+    ticketVector.reserve(numOfObjects); // Used to preallocate memory for the pre-existing objects.
     ticketVector.push_back(ticket0);
     ticketVector.push_back(ticket1);
-
-	// Change size to desirable number of total WorkTicket objects.
-    int size = 3;
    
     // Prompts the user to create the specified number of tickets.
-    for (int vectorSize = 2; vectorSize < size; vectorSize++)
+    for (int vectorSize = 2; vectorSize < numOfObjects; vectorSize++)
     {
         WorkTicket newTicket;
         newTicket.WorkTicket::SetWorkTicket();
@@ -46,7 +45,7 @@ int main()
 
     
     // Displays all the attributes of each WorkTicket obj stored in the ticket vector.
-    for (int vectorIndex = 0; vectorIndex < size; vectorIndex++)
+    for (int vectorIndex = 0; vectorIndex < numOfObjects; vectorIndex++)
     {
         WorkTicket::ShowWorkTicket(ticketVector[vectorIndex]);
     }
